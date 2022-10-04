@@ -1,0 +1,58 @@
+{% extends '_main.html' %}
+{% load static %}
+
+{% block title %}
+Liste des transferts
+{% endblock%}
+
+{% block content %}
+
+<form class="d-flex flex-row justify-content-between mb-3 align-items-center" method="post">
+    <h1 class="title fs-3 text-primary">LISTE DES TRANSFERTS</h1>
+    <!-- <div class="input-group mb-3" style="width: 30%;">
+        <span class="input-group-text" id="basic-addon1">RECHERCHE</span>
+        <input type="text" class="form-control" placeholder="............" aria-label="Username"
+            aria-describedby="basic-addon1">
+    </div> -->
+</form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">DATE</th>
+            <th scope="col">CODE</th>
+            <th scope="col">POIDS</th>
+            <th scope="col">FRAIS</th>
+            <th scope="col">EXPEDITEUR</th>
+            <th scope="col">TELEPHONE</th>
+            <th scope="col">DESTINATEUR</th>
+            <th scope="col">PROVINCE</th>
+            <th scope="col">ACTIONS</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for transfert in transferts %}
+        <tr class="colis-item">
+            <td>{{ transfert.date_enregistrement|date:"d/m/Y"}}</td>
+            <td> <strong class="colis-code">{{transfert.code}}</strong> </td>
+            <td>{{ transfert.poids }} kg</td>
+            <td>{{ transfert.frais }}$</td>
+            <td>{{ transfert.expediteur.name|title }}</td>
+            <td>{{ transfert.expediteur.telephone }}</td>
+            <td>{{ transfert.destinataire.name|title }}</td>
+            <td>{{ transfert.province_expediteur.name }} -> <strong> {{ transfert.province_destinataire.name }} </strong> </td>
+            <td>
+                <a href="{% url 'bordereau_transfert' transfert.id %}" class="btn btn-primary">Modifier</a>
+                <a href="{% url 'supprimer_colis' transfert.id 'transferts' %}" class="btn colis-btn-delete btn-danger">Supprimer</a>
+                <a href="#" class="btn btn-dark">Imprimer</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="9" class="text-center fs-3">La liste est vide</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock content %}

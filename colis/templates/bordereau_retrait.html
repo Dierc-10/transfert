@@ -1,0 +1,163 @@
+{% extends "_bordereau.html" %}
+{% load static %}
+
+{% block title %} Bordereau de Retrait {% endblock %}
+
+
+{% block content %}
+
+<h2 class="title text-primary text-center">BORDEREAU DE RETRAIT</h2>
+
+{% if colis %}
+<div class="row">
+    
+
+    <div class="col-6">
+        <div class="d-flex mb-3 align-items-end flex-row">
+            <p class="fs-4 col-7 text-primary">DESTINATAIRE</p>
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label style="white-space: nowrap;" for="destinataire_name" class="col-sm-2 col-form-label">Nom</label>
+            <div class="col-sm-8">
+                <input disabled value="{{ colis.destinataire.name }}" name="destinataire_name" type="text"
+                    class="form-control" id="destinataire_name">
+            </div>
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label style="white-space: nowrap;" for="destinataire_prenom" class="col-sm-2 col-form-label">Prénom</label>
+            <div class="col-sm-8">
+                <input disabled value="{{ colis.destinataire.prenom }}" name="destinataire_prenom" type="text"
+                    class="form-control" id="destinataire_prenom">
+            </div>
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label for="destinataire_telephone" class="col-sm-2 col-form-label">Téléphone</label>
+            <div class="col-sm-8">
+                <input disabled value="{{ colis.destinataire.telephone }}" name="destinataire_telephone" type="text"
+                    class="form-control" id="destinataire_telephone">
+            </div>
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label for="destinataire_province" class="col-sm-2 col-form-label">Province</label>
+            <div class="col-sm-8">
+                <input disabled value="{{ colis.province_destinataire.name }}" name="destinataire_province" type="text"
+                    class="form-control" id="destinataire_province">
+            </div>
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label for="destinataire_address" class="col-sm-2 col-form-label">Adresse</label>
+            <div class="col-sm-8">
+                <input value="{{ colis.destinataire.adresse }}" disabled name="destinataire_address" type="text"
+                    class="form-control" id="destinataire_address">
+            </div>
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label for="destinataire_email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-8">
+                <input value="{{ colis.destinataire.gmail }}" disabled name="destinataire_email" type="email"
+                    class="form-control" id="destinataire_email">
+            </div>
+        </div>
+
+        <div class="d-flex mb-3 align-items-end flex-row">
+            <p class="fs-5 col-7 text-primary">DÉTAILS DU COLIS</p>
+        </div>
+        
+        <div class="mb-3 d-flex justify-content-between row">
+            <label for="date_enregistrement" class="col-sm-2 col-form-label text-transform-upper">DATE</label>
+            <div class="col-sm-8">
+                <input disabled value="{{ colis.date_enregistrement|date:'d/m/Y' }}" disabled type="text" class="form-control">
+            </div>
+        </div>
+        
+        <div class="mb-3 d-flex justify-content-between row">
+            <label for="code" class="col-sm-2 col-form-label text-transform-upper">CODE</label>
+            <div class="col-sm-8">
+                <input disabled value="{{ colis.code }}" disabled type="text" class="form-control">
+            </div>
+        </div>
+        
+        <div class="mb-3 d-flex justify-content-between row">
+            <label for="frais" class="col-sm-2 col-form-label text-transform-upper">Frais</label>
+            <div class="col-sm-8">
+                <input disabled value="{{ colis.frais }}$" disabled type="text" class="form-control">
+            </div>
+        </div>
+        
+        <div class="mb-3 d-flex justify-content-between row">
+            <label for="poids" class="col-sm-2 col-form-label text-transform-upper">Poids</label>
+            <div class="col-sm-8">
+                <input disabled value="{{ colis.poids }} kg" disabled type="text" class="form-control">
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="col-6">
+        <div class="d-flex mb-3 align-items-end flex-row">
+            <p class="fs-4 col-7 text-primary">EXPÉDITEUR</p>
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label style="white-space: nowrap;" for="expediteur_name" class="col-sm-2 col-form-label">Nom</label>
+            <div class="col-sm-8">
+                <input value="{{ colis.expediteur.name }}" disabled required name="expediteur_name" type="text"
+                    class="form-control" id="expediteur_name">
+            </div>
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label style="white-space: nowrap;" for="expediteur_prenom" class="col-sm-2 col-form-label">Prénom</label>
+            <div class="col-sm-8">
+                <input value="{{ colis.expediteur.prenom }}" disabled required name="expediteur_prenom" type="text"
+                    class="form-control" id="expediteur_prenom">
+            </div>
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label for="expediteur_province" class="col-sm-2 col-form-label">Province</label>
+            <div class="col-sm-8">
+                <input required disabled type="text" class="form-control" value="{{ colis.province_expediteur.name }}">
+            </div>
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label for="expediteur_telephone" class="col-sm-2 col-form-label">Téléphone</label>
+            <div class="col-sm-8">
+                <input value="{{ colis.expediteur.telephone }}" disabled name="expediteur_telephone" type="text"
+                    class="form-control" id="expediteur_telephone">
+            </div>
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label for="expediteur_email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-8">
+                <input value="{{ colis.expediteur.gmail }}" disabled name="expediteur_email" type="email"
+                    class="form-control" id="expediteur_email">
+            </div>
+        </div>
+    
+    
+       
+
+        <div class="mb-3 justify-content-between d-flex row">
+            <label style="white-space: nowrap;" for="observation"
+                class="col-sm-12 text-primary col-form-label">OBSERVATION</label>
+            <div class="col-sm-12">
+                <textarea disabled style="padding: 5px;" maxlength="255" required name="observation" type="number"
+                    class="form-control" id="observation"> {{ colis.observation }} </textarea>
+            </div>
+        </div>
+        
+        <div class="d-flex mb-3 align-items-end justify-content-between flex-row">
+            <a href="#" class="btn btn-dark">Imprimer</a>
+            <a href="{% url 'receptions' %}" class="btn btn-danger">Quitter</a>
+            <img class="col-5" src="{% static 'agent_livraison.png' %}" alt="">
+        </div>
+    
+    </div>
+
+</div>
+
+{% else %}
+<div class="alert alert-danger text-center">{{erreur}}</div>
+<a href="{% url 'receptions' %}" style="margin: auto 0;" class="d-block btn btn-danger">Quitter</a>
+{% endif %}
+
+{% endblock %}

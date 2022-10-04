@@ -1,0 +1,154 @@
+{% extends '_main.html' %}
+{% load static %}
+
+{% block title %} Nouveau colis {% endblock%}
+
+{% block content %}
+
+<form method="post" class="row d-flex justify-content-between">
+    {% csrf_token %}
+
+    {% if erreur %}
+    <div class="alert alert-danger">
+        {{erreur}}
+    </div>
+    {% endif %}
+
+    {% if success %}
+    <div class="alert alert-success">
+        {{success}}
+    </div>
+    {% endif %}
+
+
+    <div class="col-4">
+        <div class="mb-3 d-flex justify-content-between row">
+            <label for="code" class="col-sm-2 col-form-label text-transform-upper">CODE</label>
+            <div class="col-sm-8">
+                <input value="{{code}}" disabled type="text" class="form-control">
+                <input required name="code" hidden value="{{code}}" type="text" class="form-control" id="code">
+            </div>
+        </div>
+        <div class="d-flex mb-3 align-items-end flex-row">
+            <p class="fs-4 col-7 text-primary">EXPÉDITEUR</p>
+            <img class="col-5" src="{% static 'agent_livraison.png' %}" alt="">
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label style="white-space: nowrap;" for="expediteur_name" class="col-sm-2 col-form-label">Nom</label>
+            <div class="col-sm-8">
+                <input required name="expediteur_name" type="text" class="form-control" id="expediteur_name">
+            </div>
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label style="white-space: nowrap;" for="expediteur_prenom" class="col-sm-2 col-form-label">Prénom</label>
+            <div class="col-sm-8">
+                <input required name="expediteur_prenom" type="text" class="form-control" id="expediteur_prenom">
+            </div>
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label for="expediteur_province" class="col-sm-2 col-form-label">Province</label>
+            <div class="col-sm-8">
+                <input required disabled type="text" class="form-control" value="{{current_user.province.name }}">
+                <input required hidden name="expediteur_province" type="text" value="{{current_user.province.id }}"
+                    class="form-control" id="expediteur_province">
+            </div>
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label for="expediteur_telephone" class="col-sm-2 col-form-label">Téléphone</label>
+            <div class="col-sm-8">
+                <input required name="expediteur_telephone" type="text" class="form-control" id="expediteur_telephone">
+            </div>
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label for="expediteur_email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-8">
+                <input required name="expediteur_email" type="email" class="form-control" id="expediteur_email">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4">
+        <div class="d-flex mb-3 align-items-end flex-row">
+            <p class="fs-4 col-7 text-primary">DESTINATAIRE</p>
+            <img class="col-5" src="{% static 'agent_livraison.png' %}" alt="">
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label style="white-space: nowrap;" for="destinataire_name" class="col-sm-2 col-form-label">Nom</label>
+            <div class="col-sm-8">
+                <input required name="destinataire_name" type="text" class="form-control" id="destinataire_name">
+            </div>
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label style="white-space: nowrap;" for="destinataire_prenom" class="col-sm-2 col-form-label">Prénom</label>
+            <div class="col-sm-8">
+                <input required name="destinataire_prenom" type="text" class="form-control" id="destinataire_prenom">
+            </div>
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label for="destinataire_telephone" class="col-sm-2 col-form-label">Téléphone</label>
+            <div class="col-sm-8">
+                <input required name="destinataire_telephone" type="text" class="form-control"
+                    id="destinataire_telephone">
+            </div>
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label for="destinataire_province" class="col-sm-2 col-form-label">Province</label>
+            <div class="col-sm-8">
+                <select required id="destinataire_province" name="destinataire_province" class="form-select">
+                    {% for province in provinces %}
+                    <option value="{{province.id}}">{{province}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label for="destinataire_address" class="col-sm-2 col-form-label">Adresse</label>
+            <div class="col-sm-8">
+                <input required name="destinataire_address" type="text" class="form-control" id="destinataire_address">
+            </div>
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label for="destinataire_email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-8">
+                <input required name="destinataire_email" type="email" class="form-control" id="destinataire_email">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-3">
+        <div class="d-flex mb-3 align-items-end flex-row">
+            <p class="fs-4 col-7 text-primary">DÉTAILS DU COLIS</p>
+        </div>
+        <div class="mb-3 justify-content-between d-flex row">
+            <label style="white-space: nowrap;" for="poids" class="col-sm-2 col-form-label">Poids du colis</label>
+            <div class="col-sm-8">
+                <input min="0" required name="poids" type="number" class="form-control" id="poids">
+            </div>
+        </div>
+
+        <div class="mb-3 justify-content-between d-flex row">
+            <label style="white-space: nowrap;" for="frais" class="col-sm-2 col-form-label">Frais du colis</label>
+            <div class="col-sm-8">
+                <input min="0" required name="frais" type="number" class="form-control" id="frais">
+            </div>
+        </div>
+
+        <div class="mb-3 justify-content-between d-flex row">
+            <label style="white-space: nowrap;" for="observation" class="col-sm-12 col-form-label">Observation</label>
+            <div class="col-sm-12">
+                <textarea style="padding: 5px;" maxlength="255" required name="observation" type="number" class="form-control" id="observation">
+
+                </textarea>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between mt-5">
+            <button class="btn btn-primary col-7" type="submit">Enregistrer</button>
+            <button class="btn btn-danger col-4" type="reset">Annuler</button>
+        </div>
+    </div>
+</form>
+
+
+{% endblock content %}

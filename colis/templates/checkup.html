@@ -1,0 +1,25 @@
+{% extends '_main.html' %}
+{% load static %}
+
+{% block title %}
+Checkup / Vérification
+{% endblock%}
+
+{% block content %}
+<div class="d-flex w-100 h-100 justify-content-center align-items-center">
+    <form method="post" class="mb-3 fs-3 align-items-center justify-content-between d-flex row">
+        {% csrf_token %}
+        <h2 class=" text-primary fs-1 mb-5">Checkup</h2>
+        <label for="code" class="col-sm-2 col-form-label">CODE</label>
+        <div class="col-sm-8">
+            <input name="code" type="text" class="form-control fs-3 px-3" id="code">
+        </div>
+        <button style="margin: auto 0" class="btn btn-primary mx-auto  mt-5">Vérifier</button>
+
+        {% if erreur %}
+        <div class="alert mt-3 fs-5 text-center alert-danger">{{erreur}}</div>
+        {% endif %}
+
+    </form>
+</div>
+{% endblock content %}

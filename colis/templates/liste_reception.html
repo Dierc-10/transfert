@@ -1,0 +1,57 @@
+{% extends '_main.html' %}
+{% load static %}
+
+{% block title %}
+Liste des receptions
+{% endblock%}
+
+{% block content %}
+
+<form class="d-flex flex-row justify-content-between mb-3 align-items-center" method="post">
+    <h1 class="title fs-3 text-primary">LISTE DES RECEPTIONS</h1>
+    <!-- <div class="input-group mb-3" style="width: 30%;">
+        <span class="input-group-text" id="basic-addon1">RECHERCHE</span>
+        <input type="text" class="form-control" placeholder="............" aria-label="Username"
+            aria-describedby="basic-addon1">
+    </div> -->
+</form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">DATE</th>
+            <th scope="col">CODE</th>
+            <th scope="col">POIDS</th>
+            <th scope="col">FRAIS</th>
+            <th scope="col">EXPEDITEUR</th>
+            <th scope="col">TELEPHONE</th>
+            <th scope="col">DESTINATEUR</th>
+            <th scope="col">PROVINCE</th>
+            <th scope="col">ACTIONS</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reception in receptions %}
+        <tr>
+            <td>{{ reception.date_enregistrement|date:"d/m/Y"}}</td>
+            <td> <strong>{{reception.code}}</strong> </td>
+            <td>{{ reception.poids }} kg</td>
+            <td>{{ reception.frais }}$</td>
+            <td>{{ reception.expediteur.name|title }}</td>
+            <td>{{ reception.expediteur.telephone }}</td>
+            <td>{{ reception.destinataire.name|title }}</td>
+            <td>{{ reception.province_expediteur.name }} -> <strong> {{ reception.province_destinataire.name }} </strong></td>
+            <td>
+                <a href="{% url 'bordereau_retrait' reception.id %}" class="btn btn-primary">Détails</a>
+                <a href="#" class="btn btn-dark">Imprimer</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="9" class="text-center fs-3">La liste est vide</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}
+
